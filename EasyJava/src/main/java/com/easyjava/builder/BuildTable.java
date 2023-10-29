@@ -2,6 +2,7 @@ package com.easyjava.builder;
 
 import com.easyjava.bean.Constants;
 import com.easyjava.bean.TableInfo;
+import com.easyjava.logger.EasyJavaLogger;
 import com.easyjava.utils.PropertiesUtils;
 import com.easyjava.utils.StringUtils;
 import org.slf4j.Logger;
@@ -11,9 +12,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuildTable {
+public class BuildTable implements EasyJavaLogger {
     private static Connection conn = null;
-    private static final Logger logger = LoggerFactory.getLogger(BuildTable.class);
+//    private static final Logger logger = LoggerFactory.getLogger(BuildTable.class);
     private static final String SQL_SHOW_TABLE_STATUS = "show table STATUS";
 
     static {
@@ -48,13 +49,13 @@ public class BuildTable {
                 if (Constants.IGNORE_TABLE_PREFIX) {
                     beanName = tableName.substring(beanName.indexOf("_") + 1);
                 }
-                beanName=processField(beanName,true);
+                beanName = processField(beanName, true);
                 TableInfo tableInfo = new TableInfo();
                 tableInfo.setTableName(tableName);
                 tableInfo.setBeanName(beanName);
                 tableInfo.setComment(comment);
-                tableInfo.setBeanParamName(beanName+Constants.SUFFIX_BEAN_PARAM);
-                logger.info("搜索参数：{}",beanName+Constants.SUFFIX_BEAN_PARAM);
+                tableInfo.setBeanParamName(beanName + Constants.SUFFIX_BEAN_PARAM);
+                logger.info("搜索参数：{}", beanName + Constants.SUFFIX_BEAN_PARAM);
             }
         } catch (Exception e) {
             logger.error("获取表名失败", e);

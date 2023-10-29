@@ -1,4 +1,5 @@
 # Create Table SQL
+
 ```sql
 create table tb_product_info
 (

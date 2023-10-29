@@ -3,17 +3,16 @@ package com.easyjava.bean;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.SimpleTimeZone;
 
 public class TableInfo {
     /**
      * 表名
      */
-	private String tableName;
+    private String tableName;
     /**
      * bean名称
      */
-	private String beanName;
+    private String beanName;
     /**
      * 参数名称
      */
@@ -29,7 +28,7 @@ public class TableInfo {
     /**
      * 唯一索引集合
      */
-    private Map<String,List<FieldInfo>> keyIndexMap =new LinkedHashMap<>();
+    private Map<String, List<FieldInfo>> keyIndexMap = new LinkedHashMap<>();
     /**
      * 是否有date类型
      */
