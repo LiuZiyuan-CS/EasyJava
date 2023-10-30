@@ -11,7 +11,9 @@ import org.apache.commons.lang3.ArrayUtils;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BuildTable implements EasyJavaLogger {
     private static Connection conn = null;
@@ -176,6 +178,11 @@ public class BuildTable implements EasyJavaLogger {
         try {
             ps = conn.prepareStatement(String.format(SQL_SHOW_TABLE_INDEX, tableInfo.getTableName()));
             fieldResult = ps.executeQuery();
+            // 使用缓存记录fieldName和fieldInfo，减少循环
+            Map<String, FieldInfo> cacheFieldMap = new HashMap<>();
+            for (FieldInfo fieldInfo : tableInfo.getFieldList()) {
+                cacheFieldMap.put(fieldInfo.getFieldName(), fieldInfo);
+            }
             while (fieldResult.next()) {
                 String keyName = fieldResult.getString("key_name");
                 int nonUnique = fieldResult.getInt("non_unique");
@@ -190,11 +197,12 @@ public class BuildTable implements EasyJavaLogger {
                     tableInfo.getKeyIndexMap().put(keyName, keyFieldList);
                 }
 
-                for (FieldInfo fieldInfo : tableInfo.getFieldList()) {
-                    if (fieldInfo.getFieldName().equals(columnName)) {
-                        keyFieldList.add(fieldInfo);
-                    }
-                }
+//                for (FieldInfo fieldInfo : tableInfo.getFieldList()) {
+//                    if (fieldInfo.getFieldName().equals(columnName)) {
+//                        keyFieldList.add(fieldInfo);
+//                    }
+//                }
+                keyFieldList.add(cacheFieldMap.get(columnName));
             }
         } catch (Exception e) {
             logger.error("读取索引失败", e);
