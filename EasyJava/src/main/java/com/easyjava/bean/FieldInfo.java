@@ -2,7 +2,7 @@ package com.easyjava.bean;
 
 public class FieldInfo {
     /**
-     * 字段名称
+     * 字段名称 在数据库中的字段名
      */
     private String fieldName;
     /**

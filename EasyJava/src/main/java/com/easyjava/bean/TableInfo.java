@@ -42,6 +42,12 @@ public class TableInfo {
      */
     private Boolean haveBigDecimal;
 
+    public TableInfo() {
+        this.haveDateTime = false;
+        this.haveDate = false;
+        this.haveBigDecimal = false;
+    }
+
     public String getTableName() {
         return tableName;
     }

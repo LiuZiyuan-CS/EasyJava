@@ -16,6 +16,7 @@ public class PropertiesUtils implements EasyJavaLogger {
     private static final String PROPERTY_FILE_PATH = "application.properties";
     private static final Properties props = new Properties();
     private static final Map<String, String> PROPER_MAP = new ConcurrentHashMap<>();
+
     static {
         InputStream inputStream = null;
         try {
