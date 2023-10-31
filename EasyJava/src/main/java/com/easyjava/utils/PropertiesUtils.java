@@ -4,10 +4,8 @@ package com.easyjava.utils;
 import com.easyjava.logger.EasyJavaLogger;
 import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
@@ -24,7 +22,7 @@ public class PropertiesUtils implements EasyJavaLogger {
             if (propertyFile.exists()) {
                 inputStream = PropertiesUtils.class.getClassLoader().getResourceAsStream(PROPERTY_FILE_PATH);
                 if (inputStream != null) {
-                    props.load(inputStream);
+                    props.load(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
                     for (Object o : props.keySet()) {
                         String key = String.valueOf(o);
                         PROPER_MAP.put(key, props.getProperty(key));

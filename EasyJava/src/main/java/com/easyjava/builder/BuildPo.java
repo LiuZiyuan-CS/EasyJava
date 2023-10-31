@@ -32,6 +32,7 @@ public class BuildPo implements EasyJavaLogger {
             //Serializable 接口引入
             bufferedWriter.write("import java.io.Serializable;");
             bufferedWriter.newLine();
+            bufferedWriter.newLine();
             //Date 是否存在
             if(tableInfo.getHaveDate()|| tableInfo.getHaveDateTime()){
                 bufferedWriter.write("import java.util.Date;");
@@ -50,7 +51,9 @@ public class BuildPo implements EasyJavaLogger {
             bufferedWriter.newLine();
             //bean属性 写入
             for (FieldInfo fieldInfo : tableInfo.getFieldList()) {
-                bufferedWriter.write("\t private  " + fieldInfo.getJavaType() + " " + fieldInfo.getPropertyName() + ";");
+                BuildComment.createFieldComment(bufferedWriter, fieldInfo.getComment());
+                bufferedWriter.newLine();
+                bufferedWriter.write("\tprivate " + fieldInfo.getJavaType() + " " + fieldInfo.getPropertyName() + ";");
                 bufferedWriter.newLine();
                 bufferedWriter.newLine();
             }
